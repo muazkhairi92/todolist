@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Todo;
 use App\Http\Requests\StoreTodoRequest;
 use App\Http\Requests\UpdateTodoRequest;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class TodoController extends Controller
@@ -14,9 +15,18 @@ class TodoController extends Controller
      */
     public function index(Request $request)
     {
+        $lastActivity = $request->session()->get('last_activity');
+        if ($lastActivity && Carbon::parse($lastActivity)->diffInMinutes(now()) >= 5) {
+            $request->session()->forget('todos');
+        }
+
+        $request->session()->put('last_activity', now());
+
         $todos = $request->session()->get('todos', []);
 
-        return view('todo', compact('todos'));    }
+        return view('todo', compact('todos'));
+    
+    }
 
 
     /**
