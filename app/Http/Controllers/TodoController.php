@@ -39,6 +39,7 @@ class TodoController extends Controller
                 array_unshift($todos, $request->input('list'));
         
                 $request->session()->put('todos', $todos);
+                $request->session()->put('last_activity', now());
         
                 return redirect()->route('todo.index');
     }
