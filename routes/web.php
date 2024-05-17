@@ -16,4 +16,5 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('web')->group(function () {
 Route::get('/', [TodoController::class,'index'])->name('todo.index');
 Route::post('/todo', [TodoController::class, 'store'])->name('todo.create');
+Route::post('/clear_flag', [TodoController::class, 'clearFlag'])->name('clear_flag');
 });

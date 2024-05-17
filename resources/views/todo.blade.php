@@ -2,6 +2,16 @@
 <html>
 <head>
     <title>To-Do List</title>
+    <!-- <meta name="csrf-token" content="{{ csrf_token() }}"> -->
+    <script>
+        window.addEventListener('beforeunload', function() {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "{{ route('clear_flag') }}", false);
+            xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            xhr.setRequestHeader("X-CSRF-TOKEN", document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+            xhr.send(JSON.stringify({}));
+        });
+    </script>
 </head>
 <body>
     <h1>To-Do List</h1>

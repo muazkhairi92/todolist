@@ -16,11 +16,12 @@ class TodoController extends Controller
     public function index(Request $request)
     {
         $lastActivity = $request->session()->get('last_activity');
-        if ($lastActivity && Carbon::parse($lastActivity)->diffInMinutes(now()) >= 5) {
+        if (($lastActivity && Carbon::parse($lastActivity)->diffInMinutes(now()) >= 5)||$request->session()->get('clear_todos', false)) {
             $request->session()->forget('todos');
         }
 
         $request->session()->put('last_activity', now());
+        $request->session()->put('clear_todos',true);
 
         $todos = $request->session()->get('todos', []);
 
@@ -39,9 +40,17 @@ class TodoController extends Controller
                 array_unshift($todos, $request->input('list'));
         
                 $request->session()->put('todos', $todos);
+
                 $request->session()->put('last_activity', now());
-        
+                
+                $request->session()->put('clear_todos',false);
+
                 return redirect()->route('todo.index');
     }
 
+    public function clearFlag(Request $request){
+        $request->session()->put('clear_todos',false);
+        
+        return response()->noContent();
+    }
 }
