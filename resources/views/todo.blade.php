@@ -1,57 +1,40 @@
- <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <title>Todo List</title>
- 
-        <!-- CSS And JavaScript -->
-    </head>
- 
-    <body>
-        <div class="container">
-            <nav class="navbar navbar-default">
-                <!-- Navbar Contents -->
-            </nav>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>To-Do List</title>
+</head>
+<body>
+    <h1>To-Do List</h1>
+
+    @if (session('success'))
+        <p style="color: green;">{{ session('success') }}</p>
+    @endif
+
+    @if ($errors->any())
+        <div style="color: red;">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
         </div>
- 
-        <div class="panel-body">
-        <!-- Display Validation Errors -->
-        @if (count($errors) > 0)
-            <!-- Form Error List -->
-            <div class="alert alert-danger">
-                <strong>Whoops! Something went wrong!</strong>
-        
-                <br><br>
-        
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif 
-        <!-- New Task Form -->
-        <form action="{{ url('task') }}" method="POST" class="form-horizontal">
-            {{ csrf_field() }}
- 
-            <!-- Task Name -->
-            <div class="form-group">
-                <label for="task" class="col-sm-3 control-label">Task</label>
- 
-                <div class="col-sm-6">
-                    <input type="text" name="name" id="task-name" class="form-control">
-                </div>
-            </div>
- 
-            <!-- Add Task Button -->
-            <div class="form-group">
-                <div class="col-sm-offset-3 col-sm-6">
-                    <button type="submit" class="btn btn-default">
-                        <i class="fa fa-plus"></i> Add Task
-                    </button>
-                </div>
-            </div>
-        </form>
-    </div>
- 
-    </body>
+    @endif
+
+    <form action="{{ route('todo.create') }}" method="POST">
+        @csrf
+        <label for="list">New Item:</label>
+        <input type="text" id="list" name="list" required>
+        <button type="submit">Add</button>
+    </form>
+
+    <ul>
+        @foreach ($todos as $index => $todo)
+            <li>{{ $todo }}
+                    @csrf
+                    <input type="hidden" name="index" value="{{ $index }}">
+                </form>
+            </li>
+        @endforeach
+    </ul>
+</body>
 </html>
