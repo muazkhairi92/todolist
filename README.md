@@ -29,7 +29,7 @@ git clone https://github.com/Invokemy/kira-api.git
 composer install
 ```
 
-4. Create `.env` file. Copy `.ev.example` and rename it.
+4. Create `.env` file. Copy `.ev.example` and rename it to `.env`.
 
 5. This project uses MySQL for its database. Please setup the database and feed the details in `.env`. Or if no database confirgued, change in `.env` field `SESSION_DRIVER=database` to `SESSION_DRIVER=file`.
 
@@ -43,6 +43,9 @@ php artisan migrate
 ```
 php artisan serve
 ```
+
+use the url to use the to-do list!
+
 7. To test all test:
 
 ```
