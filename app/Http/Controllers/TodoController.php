@@ -16,7 +16,7 @@ class TodoController extends Controller
     public function index(Request $request)
     {
         $lastActivity = $request->session()->get('last_activity');
-        if (($lastActivity && Carbon::parse($lastActivity)->diffInMinutes(now()) >= 5)||$request->session()->get('clear_todos', false)) {
+        if (($lastActivity && Carbon::parse($lastActivity)->diffInMinutes(now()) >= env('PERIOD_OF_INACTIVITY'))||$request->session()->get('clear_todos', false)) {
             $request->session()->forget('todos');
         }
 

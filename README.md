@@ -52,6 +52,8 @@ use the url to use the to-do list!
 php artisan test
 ```
 
+8. Currently the inactivity period is set to 5 minutes. Please update in `.env` of field `PERIOD_OF_INACTIVITY=5` to any minutes desired.
+
 
 ## Development
 
