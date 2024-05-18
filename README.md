@@ -18,7 +18,7 @@ This project provides a simple yet interactive to-do list application with featu
 1. Download repository:
 
 ```
-git clone https://github.com/Invokemy/kira-api.git
+git clone https://github.com/muazkhairi92/todolist.git
 ```
 
 2. Please ensure you have install the correct version of PHP and Composer. If not configured, for PHP, please refer this: https://www.php.net/manual/en/install.php. And for Composer please refer this: https://getcomposer.org/doc/00-intro.md.
